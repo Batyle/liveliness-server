@@ -43,6 +43,17 @@ predictor = AntiSpoofPredict(0)
 cropper = CropImage()
 
 
+@app.get("/")
+def root():
+    """Small status response for opening the Vercel deployment URL directly."""
+    return {
+        "service": "FaceAttend liveness API",
+        "ready": models.is_dir(),
+        "health": "/health",
+        "liveness": "/liveness",
+    }
+
+
 @app.get("/health")
 def health():
     return {"ready": models.is_dir()}
